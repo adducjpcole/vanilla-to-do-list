@@ -16,9 +16,13 @@ export default function createLiTask(
   const li = PARSER.parseFromString(
     `
     <li class="flex items-center justify-between overflow-hidden scroll-m-0 mb-0 max-h-0 transition-all rounded">
-      <span class="flex flex-1 px-2 py-1 mr-2 items-center gap-2 hover:bg-neutral-200/50">
+      <span class="group flex flex-1 px-2 py-1 mr-2 items-center gap-2 hover:bg-neutral-200/50">
         <input type="checkbox"
-          class="peer appearance-none size-6 border-2 border-purple-600 rounded-full checked:bg-purple-600 transition-colors duration-100 hover:bg-purple-600/50"
+          class="peer appearance-none size-6 border-2 border-purple-600 rounded-full checked:bg-purple-600 transition-all relative checked:group-hover:bg-purple-600/50 group-hover:bg-purple-600/50 hover:bg-purple-600/50
+
+          after:content-[''] after:absolute after:inset-0 after:flex after:items-center after:justify-center
+        after:text-white after:text-sm after:font-bold after:opacity-0
+          checked:after:opacity-100 checked:after:content-['✓']"
           ${checked ? 'checked' : ''}
         />
         <p
