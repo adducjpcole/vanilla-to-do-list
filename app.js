@@ -1,4 +1,4 @@
-import createTaskLi from './js/createTaskLi.js';
+import createLiTask from './js/createLiTask.js';
 import loadTasks from './js/loadTasks.js';
 import saveTasks from './js/saveTasks.js';
 const FORM_TASK_ADDER = document.getElementById('task-adder');
@@ -10,7 +10,7 @@ FORM_TASK_ADDER.addEventListener('submit', (ev) => {
 
   const formData = new FormData(ev.currentTarget);
   UL_TASKS.appendChild(
-    createTaskLi(
+    createLiTask(
       formData.get('task-label'),
       false,
       () => saveTasks(UL_TASKS),

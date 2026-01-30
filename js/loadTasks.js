@@ -1,4 +1,4 @@
-import createTaskLi from './createTaskLi.js';
+import createLiTask from './createLiTask.js';
 import saveTasks from './saveTasks.js';
 
 export default function loadTasks() {
@@ -8,7 +8,7 @@ export default function loadTasks() {
   const container = document.createDocumentFragment();
   for (const task of JSON.parse(tasks)) {
     container.appendChild(
-      createTaskLi(
+      createLiTask(
         task.label,
         task.checked,
         () => saveTasks(container),

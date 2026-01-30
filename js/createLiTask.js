@@ -6,7 +6,7 @@ const PARSER = new DOMParser();
  * @param {?Function} onRemoveTask
  * @param {?Function} onCheckTask
  */
-export default function createTaskLi(
+export default function createLiTask(
   label,
   checked,
   onRemoveTask,
