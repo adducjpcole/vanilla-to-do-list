@@ -1,21 +1,21 @@
 import createLiTask from './createLiTask.js';
 import saveTasks from './saveTasks.js';
 
-export default function loadTasks() {
-  const tasks = localStorage.getItem('tasks');
+/**
+ * @param {HTMLUListElement | HTMLOListElement} taskContainer
+ */
+export default function loadTasks(taskContainer) {
+  let tasks = localStorage.getItem('tasks');
   if (!tasks) tasks = '[]';
 
-  const container = document.createDocumentFragment();
   for (const task of JSON.parse(tasks)) {
-    container.appendChild(
+    taskContainer.appendChild(
       createLiTask(
         task.label,
         task.checked,
-        () => saveTasks(container),
-        () => saveTasks(container),
+        () => saveTasks(taskContainer),
+        () => saveTasks(taskContainer),
       ),
     );
   }
-
-  return container;
 }

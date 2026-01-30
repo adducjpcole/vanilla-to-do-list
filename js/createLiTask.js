@@ -3,8 +3,8 @@ const PARSER = new DOMParser();
 /**
  * @param {string} label
  * @param {boolean} checked
- * @param {?Function} onRemoveTask
- * @param {?Function} onCheckTask
+ * @param {Function?} onRemoveTask
+ * @param {Function?} onCheckTask
  */
 export default function createLiTask(
   label,
@@ -12,15 +12,13 @@ export default function createLiTask(
   onRemoveTask,
   onCheckTask,
 ) {
-  /**
-   * @type {HTMLLIElement}
-   */
+  /** @type {HTMLLIElement} */
   const li = PARSER.parseFromString(
     `
-    <li class="flex items-center justify-between overflow-hidden mb-0 max-h-0 transition-all">
-      <span class="flex items-center gap-2">
+    <li class="flex items-center justify-between overflow-hidden scroll-m-0 mb-0 max-h-0 transition-all rounded">
+      <span class="flex flex-1 px-2 py-1 mr-2 items-center gap-2 hover:bg-neutral-200/50">
         <input type="checkbox"
-          class="peer appearance-none size-6 border-2 border-orange-600 rounded-full checked:bg-orange-600 transition-colors duration-100 hover:bg-orange-600/50"
+          class="peer appearance-none size-6 border-2 border-purple-600 rounded-full checked:bg-purple-600 transition-colors duration-100 hover:bg-purple-600/50"
           ${checked ? 'checked' : ''}
         />
         <p
@@ -29,7 +27,7 @@ export default function createLiTask(
             ${label}
         </p>
       </span>
-      <button class="size-6 text-neutral-600 hover:text-neutral-800 hover:scale-110 transition-all">
+      <button class="peer size-6 text-neutral-600 hover:text-neutral-800 hover:scale-150 transition-all">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -50,18 +48,27 @@ export default function createLiTask(
 
   const checkbox = li.getElementsByTagName('input').item(0);
   checkbox.addEventListener('change', () => onCheckTask?.());
+  {
+    /** @type {HTMLSpanElement} */
+    const span = checkbox.parentElement;
+    span.addEventListener('click', (ev) => {
+      if (ev.currentTarget !== ev.target) return;
+
+      checkbox.checked = !checkbox.checked;
+    });
+  }
 
   requestAnimationFrame(() => {
     li.classList.remove('mb-0');
     li.classList.remove('max-h-0');
     li.classList.add('mb-2');
-    li.classList.add('max-h-6');
+    li.classList.add('max-h-24');
   });
 
   const button = li.getElementsByTagName('button').item(0);
   button.addEventListener('click', () => {
     li.classList.remove('mb-2');
-    li.classList.remove('max-h-6');
+    li.classList.remove('max-h-24');
     li.classList.add('mb-0');
     li.classList.add('max-h-0');
 
@@ -69,7 +76,7 @@ export default function createLiTask(
     setTimeout(() => {
       li.parentElement.removeChild(li);
       onRemoveTask?.();
-    }, 150);
+    }, 150 * 0.8);
   });
 
   return li;

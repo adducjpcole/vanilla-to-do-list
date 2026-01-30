@@ -3,7 +3,7 @@
  */
 export default function saveTasks(taskContainer) {
   let tasks = [];
-  for (let i = 0; i < taskContainer.childElementCount; i++) {
+  for (let i = 0; i < taskContainer.children.length; i++) {
     const label = taskContainer.children
       .item(i)
       .getElementsByTagName('p')
