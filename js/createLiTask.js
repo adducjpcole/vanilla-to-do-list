@@ -52,6 +52,7 @@ export default function createLiTask(
 
   const checkbox = li.getElementsByTagName('input').item(0);
   checkbox.addEventListener('change', () => onCheckTask?.());
+
   {
     /** @type {HTMLSpanElement} */
     const span = checkbox.parentElement;
@@ -59,6 +60,7 @@ export default function createLiTask(
       if (ev.currentTarget !== ev.target) return;
 
       checkbox.checked = !checkbox.checked;
+      onCheckTask?.();
     });
   }
 
