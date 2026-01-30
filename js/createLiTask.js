@@ -57,7 +57,7 @@ export default function createLiTask(
     /** @type {HTMLSpanElement} */
     const span = checkbox.parentElement;
     span.addEventListener('click', (ev) => {
-      if (ev.currentTarget !== ev.target) return;
+      if (ev.target === checkbox) return;
 
       checkbox.checked = !checkbox.checked;
       onCheckTask?.();
